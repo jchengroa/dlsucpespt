@@ -5,6 +5,11 @@ ID Number: 12447935
 
 Version: 0.1
 > ASCII Art, Title Menu and Help Menu Design Added
+
+Version: 0.1.1
+> Bugfix: Fixed help_menu alignment and fixed logo ASCII Art
+> Added Info for Help Doc and Credits
+
 """
 
 def logo():
@@ -12,12 +17,12 @@ def logo():
     <DOCSTRING: LOGO>
     This Function prints the ascii of the logo for the project. Total of six print lines!
     """
-    print("__________                                                    ___________                     __                  ")
-    print("\______   \_______  ____   ___________   ____   ______ ______ \__    ___/___________    ____ |  | __ ___________  ")
-    print(" |     ___/\_  __ \/  _ \ / ___\_  __ \_/ __ \ /  ___//  ___/   |    |  \_  __ \__  \ _/ ___\|  |/ // __ \_  __ \ ")
-    print(" |    |     |  | \(  <_> ) /_/  >  | \/\  ___/ \___ \ \___ \    |    |   |  | \// __ \\  \___|    <\  ___/|  | \/ ")
-    print(" |____|     |__|   \____/\___  /|__|    \___  >____  >____  >   |____|   |__|  (____  /\___  >__|_ \\___  >__|    ")
-    print("                        /_____/             \/     \/     \/                        \/     \/     \/    \/        ")
+    print(r"__________                                                    ___________                     __                  ")
+    print(r"\______   \_______  ____   ___________   ____   ______ ______ \__    ___/___________    ____ |  | __ ___________  ")
+    print(r" |     ___/\_  __ \/  _ \ / ___\_  __ \_/ __ \ /  ___//  ___/   |    |  \_  __ \__  \ _/ ___\|  |/ // __ \_  __ \ ")
+    print(r" |    |     |  | \(  <_> ) /_/  |  | \/\  ___/ \___ \ \___ \    |    |   |  | \// __ \\  \___|    \\  ___/|  | \/ ")
+    print(r' |____|     |__|   \____/\___  /|__|    \____ \_____ \_____ \   |____|   |__|  (_____ /\___  /__|_ \\_____>__|    ')
+    print(r"                        /_____/                                                                   \/              ")
 
 def title_menu():
     """
@@ -43,8 +48,39 @@ def help_menu():
     logo()
     helptitle = "Help Doc"
     spaceshelptitle = "-"*len(helptitle)
-    print(spaceshelptitle.center(116+len(helptitle)), helptitle.center(114), spaceshelptitle.center(115+len(helptitle)))
+    print("\n", spaceshelptitle.center(114), "\n", helptitle.center(114), "\n", spaceshelptitle.center(114))
+
+    # Help Doc Starts Here
+    helpdoc = r""" 
+    Features:
+    1.	Menu and Save Management:
+    •	Users can select up to three available save files.
+    •	New save files allow the user to choose between a blank slate or a preloaded flowchart.
+
+    2.	Course Flowchart and Subject Customization:
+    •	If the flowchart is selected, minor subject placeholders can be updated
+    •	Users can manually add, remove, or edit subjects even if they chose the flowchart.
+
+    3.	Grade Input and Computation:
+    •	Users input the score they got in each output they completed. (Practical 1, Long Quiz 3).
+    •	The program automatically calculates their GPA, total units completed, remaining units.
+    •	Each course has a predefined grading system, based on each course syllabus.
+    •	The system displays if you are eligible for dean’s lister and Latin honors
+
+    4.	Output and Data Management:
+    •	The program is entirely console based with ascii art and tables for organization.
+    •	The system uses a file handling system like .json files to store data.
+"""
+    print(helpdoc)
 
     credittitle = "Credits"
     spacescredittitle = "-"*len(credittitle)
-    print(spacescredittitle.center(116+len(credittitle)), credittitle.center(116), spacescredittitle.center(115+len(credittitle)))
+    print("\n", spacescredittitle.center(114), "\n", credittitle.center(114), "\n", spacescredittitle.center(114))
+
+    # Credits Start Here
+    creditslist = r"""
+    This project was made by John Carlo E. Cheng Roa, as a core requirement for the course LBYCPA1-EQ3
+    With our professor, Mr. John Vincent Cortez
+"""
+    print(creditslist)
+

@@ -5,10 +5,14 @@ ID Number: 12447935
 
 Version: 0.1
 > Added Menu, Menu Logic, and Error Handling.
+
+Version: 0.1.1
+> Added import and logic context for the coursemanagement module.
 """
 
 # Import Project Files
 from menu import *
+import coursemanagement as cm
 
 # Import System Files
 import os
@@ -42,12 +46,12 @@ def main():
         options = input(">> ")
 
         if options == "1":
-            errorhandline1 = 2
-            # Create Save File Module Here
+            errorhandline1 = 0
+            cm.createsave()
             pass
         elif options == "2":
-            errorhandline1 = 2
-            # Load Save File Module Here
+            errorhandline1 = 0
+            cm.loadsave()
             pass
         elif options == "3":
             errorhandline1 = 0
