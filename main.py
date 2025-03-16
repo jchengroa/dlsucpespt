@@ -8,6 +8,10 @@ Version: 0.1
 
 Version: 0.1.1
 > Added import and logic context for the coursemanagement module.
+
+Version: 0.2
+> Handled Error Handling for Load File Sub Menu
+> Passed value returned from one function in Load Save Sub Menu to the coursemanagement system.
 """
 
 # Import Project Files
@@ -34,8 +38,7 @@ def main():
     options = "0"
     errorhandline1 = int()
 
-    while options != "hooyah!":
-
+    while True:
         os.system('cls')
         title_menu()
         if errorhandline1 == 1:
@@ -51,7 +54,12 @@ def main():
             pass
         elif options == "2":
             errorhandline1 = 0
-            cm.loadsave()
+            save_file = cm.loadsave()
+            if save_file == "4":
+                errorhandline1 = 1
+                continue
+            cm.coursemanagement_fromsave(save_file)
+            input("<< < Enter Any Character to Exit this Page > >>\n")
             pass
         elif options == "3":
             errorhandline1 = 0
@@ -59,8 +67,6 @@ def main():
             help_menu()
             input("<< < Enter Any Character to Exit this Page > >>\n")
             pass
-
-
         elif options == "4":
             errorhandline1 = 0
             os.system('cls')
