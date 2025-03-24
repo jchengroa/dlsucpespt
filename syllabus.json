@@ -1,0 +1,14 @@
+{
+    "cpeterm1": ["FNDMATH", "BASCHEM", "BASPHYS", "FNDSTAT", "NSTP101", "GE00001"],
+    "cpeterm2": ["CALENG1", "COEDISC", "PROLOGI", "LBYCPA1", "LBYEC2A", "NSTP001", "GE00002", "GE00003", "GE00004"],
+    "cpeterm3": ["ENGPHYS", "LBYPH1A", "CALENG2", "LBYEC2B", "LBYCPEI","NSTP002", "GE00005", "GE00006", "GE00007", "LCLSONE", "SAS1000", "LASARE1"],
+    "cpeterm4": ["CALENG3", "DATSRAL", "LBYCPA2", "DISCRMT", "FUNDCKT", "LBYEC2M", "ENGCHEM", "LBYCH1A", "PE1CRDO"],
+    "cpeterm5": ["ENGDATA", "NUMMETS", "FUNDLEC", "LBYCPC2", "SOFDESG", "LBYCPD2", "ENGENVI", "PE2FTEX", "SAS2000"],
+    "cpeterm6": [],
+    "cpeterm7": [],
+    "cpeterm8": [],
+    "cpeterm9": [],
+    "cpeterm10": [],
+    "cpeterm11": ["PRCGECP"],
+    "cpeterm12": ["THSCP4C", "CPECOG3", "LBYCPC4", "CPETRIP", "ECNOMIC", "ENGMANA", "GE000013", "GE000014", "GE000015"]
+}

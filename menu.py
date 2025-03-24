@@ -15,6 +15,10 @@ Version: 0.2
 > Optimization: Removed unecessary variables
 > Created Menu for coursemanagement (load_menu and create_menu)
 
+Version: 0.3
+> Updated ASCII Art for Menu Box, and Create Save elements
+> Optimization: Removed more unecessary variables and replaced with functions
+
 """
 # Import Project Files
 
@@ -36,6 +40,50 @@ def logo():
     print(r' |____|     |__|   \____/\___  /|__|    \____ \_____ \_____ \   |____|   |__|  (_____ /\___  /__|_ \\_____>__|    ')
     print(r"                        /_____/                                                                   \/              ")
 
+def menubox():
+    print(r" ______________________________________________________ ".center(114))
+    print(r"(__   ____________________________________________   __)".center(114))
+    print(r"   | |                                            | |   ".center(114))
+    print(r"   | |               (1) -  START                 | |   ".center(114))
+    print(r"   | |               (2) - HELPDOC                | |   ".center(114))
+    print(r"   | |               (3) -  EXIT                  | |   ".center(114))
+    print(r" __| |____________________________________________| |__ ".center(114))
+    print(r"(______________________________________________________)".center(114))
+
+def cmloadmenu():
+    displayheading("Create New Save Menu")
+    print(r" ______________________________________________________ ".center(114))
+    print(r"(__   ____________________________________________   __)".center(114))
+    print(r"   | |                                            | |   ".center(114))
+    print(r"   | |       (1) -   LOAD SYLLABUS TEMPLATE       | |   ".center(114))
+    print(r"   | |       (2) -      CREATE FROM SCRATCH       | |   ".center(114))
+    print(r"   | |         (PRESS ANY KEY TO GO BACK)         | |   ".center(114))
+    print(r" __| |____________________________________________| |__ ".center(114))
+    print(r"(______________________________________________________)".center(114))
+
+def addcourse():
+    print(r"+_____________________________________+".center(114))
+    print(r"|_________ Add From Scratch __________|".center(114))
+    print(r"|                                     |".center(114))
+    print(r"| Enter (exit) in the prompt if done. |".center(114))
+    print(r"+_____________________________________+".center(114))
+
+def addfromsyb():
+    print(r"+______________________________________+".center(114))
+    print(r"|____  Add From Syllabus Template  ____|".center(114))
+    print(r"|                                      |".center(114))
+    print(r"|  Enter (exit) in the prompt if done. |".center(114))
+    print(r"+____________________________________ _+".center(114))
+
+def sybcourse(course):
+    print(r"+_____________________________________+".center(114))
+    print(f"|______________ {course} ______________|".center(114))
+    print(r"|                                     |".center(114))
+    print(r"|       (1) - Change Course Code      |".center(114))
+    print(r"|       (2) - Input GPA               |".center(114))
+    print(r"|                                     |".center(114))
+    print(r"|       (ENTER (exit) TO ABORT)       |".center(114))
+    print(r"+_____________________________________+".center(114))
 
 def displayheading(heading):
     spacesheading = "-"*len(heading)
@@ -47,13 +95,8 @@ def title_menu():
     This Function is where the main menu is displayed.
     """
     logo()
-    spacestitle = "-"*25
-
-    print("\n", "De La Salle University - Bachelor of Science in Computer Engineering".center(114), 
-          "\n", "Student Progress Tracker".center(114), "\n\n", spacestitle.center(114), "\n", 
-          "| [1] - Create New Save |".center(114), "\n", "| [2] - Load Save File  |".center(114), "\n", 
-          "| [3] - Help & Credits  |".center(114), "\n", "| [4] - Exit            |".center(114), "\n", 
-          spacestitle.center(114))
+    print("\n\n\n", "DE LA SALLE UNIVERSITY - MANILA".center(114), "\n", "COMPUTER ENGINEERING (CpE) STUDENT PROGRESS TRACKER".center(114))
+    menubox()
 
 def help_menu():
     """
@@ -89,18 +132,6 @@ def help_menu():
     This project was made by John Carlo E. Cheng Roa, as a core requirement for the course LBYCPA1-EQ3
     With our professor, Mr. John Vincent Cortez
 """)
-
-def load_menu():
-    """
-    <DOCSTRING: LOAD_MENU>
-    This function displays a menu for loading saved files
-    """
-    logo()
-    displayheading("Load Save Menu")
-    menucenter = "-"*23
-    print("\n", menucenter.center(114), "\n", "| (1)   Load Save 1   |".center(114), "\n", 
-          "| (2)   Load Save 2   |".center(114), "\n", "| (3)   Load Save 3   |".center(114), 
-          "\n", menucenter.center(114))
 
 def create_menu():
     """
