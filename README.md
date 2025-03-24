@@ -31,3 +31,22 @@ coursemanagement.py - Added new menus for loadsave and createsave functions
                       Added ability for loadsave function to read json files
 
 === ( Dated: March 16, 2025 @ 01:26 PM ) ===
+
+< < < General Version: 0.3 > > >
+
+main.py -             Updated Options, Combined Create and Load into One called Start
+                      Input (clean) that is password protected that wipes the save file
+                      Added Exception handling on the input, as ctrl+c raised an error.
+menu.py -             Updated ASCII Art for Menu Box, and Create Save elements
+                      Optimization: Removed more unecessary variables and replaced with functions
+coursemanagement.py - Added function to automatically loads save files with data and creates new data for save files without data
+                      Added a submenu for Create Save File.
+                      Added Create Save File function from syllabus template, with exception handling
+                      Added Create Save File function from scratch, with exception handling
+                      Added ability to save data into the main json file
+                      Added ability to read from the syllabus json
+                      When a save is found, a function is created to load and pass the information to course management system
+                      Added Exception handling in other functions
+                      Optimization: Removed Variables and Simplified Code
+
+=== ( Dated: March 25, 2025 @ 12:37 AM ) ===
