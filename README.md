@@ -51,3 +51,20 @@ coursemanagement.py - Added function to automatically loads save files with data
                       Optimization: Removed Variables and Simplified Code
 
 === ( Dated: March 25, 2025 @ 12:37 AM ) ===
+
+< < < General Version: 0.4 > > >
+
+main.py -             Added Error handling for clearing screen for macOS and Linux devices
+                      Transferred Clean function to the coursemanagement menu
+menu.py -             Added Menu for Course Management
+                      Updated Help and Credit Doc
+                      Added Docstring for new functions
+coursemanagement.py - Implemented Course Menu
+                      Implemented Edit Course in the Course Menu
+                      Added System that updates the coursemenu with recent information
+                      Added System that updates courses in the coursemenu
+                      Added System that updates gpa in the coursemenu
+                      Fixed Bugs from old code
+                      
+* note, I started from 9AM and finished with bugs at 11:26PM, bruh...
+=== ( Dated: March 29, 2025 @ 11:26 PM ) ===
