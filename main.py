@@ -18,6 +18,9 @@ Version: 0.3
 > Input (clean) that is password protected that wipes the save file
 > Added Exception handling on the input, as ctrl+c raised an error.
 
+Version: 0.4
+> Added Error handling for clearing screen for macOS and Linux devices
+> Transferred Clean function to the coursemanagement menu
 """
 
 # Import Project Files
@@ -31,7 +34,15 @@ import os
 
 
 # Functions
-
+def clr():
+    """
+    <DOCSTRING: CLR>
+    This function clears the screen, adaptive to any OS
+    """
+    try:
+        os.system('cls') # Windows based system
+    except Exception:
+        os.system('clear') # macOS and Linux based system
 
 # The Main Function
 def main():
@@ -45,15 +56,15 @@ def main():
     errorhandline1 = int()
 
     while True:
-        os.system('cls')
+        clr()
         title_menu()
         if errorhandline1 == 1:
             print("Invalid Input, Try Again!")
             
         try:
             options = input(">> ")
-        except Exception:
-            options = ""
+        except KeyboardInterrupt:
+            options = " "
 
         if options == "1":
             errorhandline1 = 0
@@ -61,17 +72,20 @@ def main():
             pass
         elif options == "2":
             errorhandline1 = 0
-            os.system('cls')
+            clr()
             help_menu()
             input("<< < Enter Any Character to Exit this Page > >>\n")
             pass
         elif options == "3":
             errorhandline1 = 0
-            os.system('cls')
+            clr()
             print("Are you sure?\n[1] - Yes\n[2] - No\n")
-            areyousure = input(">> ")
+            try:
+                areyousure = input(">> ")
+            except KeyboardInterrupt:
+                areyousure = " "
             if areyousure == "1":
-                os.system('cls')
+                clr()
                 break
             elif areyousure == "2":
                 continue
@@ -79,20 +93,8 @@ def main():
                 errorhandline1 = 1
                 continue
         elif options == "exit":
-            os.system('cls')
+            clr()
             break
-        elif options == "clean":
-            pswd = input("\nEnter Password:\n\n>> ")
-            if pswd == "lbycpa1":
-                with open("savedata.json", "w") as file:
-                    file.truncate(0)
-                print("\nSave File Wiped!\n")
-                input("<< < Enter Any Character to Continue > >>\n")
-                continue
-            else:
-                print("\nWRONG PASSWORD\nBe Careful! This will wipe your save file.\n")
-                input("<< < Enter Any Character to Continue > >>\n")
-
         else:
             errorhandline1 = 1
 

@@ -19,11 +19,14 @@ Version: 0.3
 > Updated ASCII Art for Menu Box, and Create Save elements
 > Optimization: Removed more unecessary variables and replaced with functions
 
+Version: 0.4
+> Added Menu for Course Management
+> Updated Help and Credit Doc
+> Added Docstring for new functions
 """
-# Import Project Files
+# Import Project File
 
 # Import System Files
-import os
 
 # Variables
 
@@ -41,6 +44,10 @@ def logo():
     print(r"                        /_____/                                                                   \/              ")
 
 def menubox():
+    """
+    <DOCSTRING: MENUBOX>
+    This Function displays user options in the main menu
+    """
     print(r" ______________________________________________________ ".center(114))
     print(r"(__   ____________________________________________   __)".center(114))
     print(r"   | |                                            | |   ".center(114))
@@ -51,6 +58,10 @@ def menubox():
     print(r"(______________________________________________________)".center(114))
 
 def cmloadmenu():
+    """
+    <DOCSTRING: COURSE MANAGEMENT MENU FOR CREATION>
+    This Function displays user options if savedata.json is empty
+    """
     displayheading("Create New Save Menu")
     print(r" ______________________________________________________ ".center(114))
     print(r"(__   ____________________________________________   __)".center(114))
@@ -62,20 +73,36 @@ def cmloadmenu():
     print(r"(______________________________________________________)".center(114))
 
 def addcourse():
+    """
+    <DOCSTRING: COURSE MANAGEMENT ADD FROM SCRATCH>
+    This Function prints a dialog for the add from scratch section
+    """
     print(r"+_____________________________________+".center(114))
     print(r"|_________ Add From Scratch __________|".center(114))
     print(r"|                                     |".center(114))
-    print(r"| Enter (exit) in the prompt if done. |".center(114))
+    print(r"|        What term are you in?        |".center(114))
+    print(r"|                                     |".center(114))
+    print(r"| Enter (exit)  in prompt to go back. |".center(114))
     print(r"+_____________________________________+".center(114))
 
 def addfromsyb():
+    """
+    <DOCSTRING: COURSE MANAGEMENT ADD FROM SYLLABUS>
+    This Function prints a dialog for the add from syllabus section
+    """
     print(r"+______________________________________+".center(114))
     print(r"|____  Add From Syllabus Template  ____|".center(114))
     print(r"|                                      |".center(114))
-    print(r"|  Enter (exit) in the prompt if done. |".center(114))
+    print(r"|        What term are you in?         |".center(114))
+    print(r"|                                      |".center(114))
+    print(r"|  Enter (exit)  in prompt to go back. |".center(114))
     print(r"+____________________________________ _+".center(114))
 
 def sybcourse(course):
+    """
+    <DOCSTRING: COURSE MANAGEMENT ADD FROM SYLLABUS EDIT>
+    This Function prints a dialog to edit through the courses in the syllabus in the selected term
+    """
     print(r"+_____________________________________+".center(114))
     print(f"|______________ {course} ______________|".center(114))
     print(r"|                                     |".center(114))
@@ -85,7 +112,66 @@ def sybcourse(course):
     print(r"|       (ENTER (exit) TO ABORT)       |".center(114))
     print(r"+_____________________________________+".center(114))
 
+def coursemanagementmenu(term, termword, course):
+    """
+    <DOCSTRING: COURSE MANAGEMENT MENU>
+    This Function displays the courses and gpa in the savedata.json file
+    """
+    logo()
+    print("\n\n\n")
+    n = 1
+    
+    print(r"_______________________________________________________".center(114))
+    print(r"|_____________ {COURSE MANAGEMENT MENU} ______________|".center(114))
+    print(r"|                                                     |".center(114))
+    if len(str(term)) == 2:
+        print(f"|{termword:^53}|".center(114))
+    elif len(str(term)) == 1:
+        print(f"|{termword:^53}|".center(114))
+    print(r"|                                                     |".center(114))
+    for keys, values in course.items():
+        try:
+            displaygrades = f"({str(n)})    -    {keys} - {values:.1f}"
+        except TypeError:
+            displaygrades = f"({str(n)})    -    {keys} - {float(values):.1f}"
+        print(f"|{displaygrades:^53}|".center(114))
+        n += 1
+    print(r"|                                                     |".center(114))
+    print(r"|_____________________________________________________|".center(114))
+    return n
+    
+def cm_editcourse(course, mode=1):
+    print("\n")
+    if mode == 1:
+        print(r"_______________________________________________________".center(114))
+        print(f"|__________________  (EDIT {course})  _________________|".center(114))
+        print(r"|                                                     |".center(114))
+        print(f"|{"(1)   EDIT COURSE CODE"  :^53}|".center(114))
+        print(f"|{"(2)    EDIT COURSE GPA":^53}|".center(114))
+        print(f"|{"PRESS ENTER TO GO BACK":^53}|".center(114))
+        print(r"|_____________________________________________________|".center(114))
+    if mode == 2:
+        print(r"_______________________________________________________".center(114))
+        print(f"|__________________  (EDIT {course})  _________________|".center(114))
+        print(r"|                                                     |".center(114))
+        print(f"|             ENTER {course} NEW COURSE CODE           |".center(114))
+        print(f"|                                                     |".center(114))
+        print(f"|{"PRESS ENTER TO GO BACK":^53}|".center(114))
+        print(r"|_____________________________________________________|".center(114))
+    if mode == 3:
+        print(r"_______________________________________________________".center(114))
+        print(f"|__________________  (EDIT {course})  _________________|".center(114))
+        print(r"|                                                     |".center(114))
+        print(f"|                 ENTER {course} NEW GPA              |".center(114))
+        print(f"|                                                     |".center(114))
+        print(f"|{"PRESS ENTER TO GO BACK":^53}|".center(114))
+        print(r"|_____________________________________________________|".center(114))
+
 def displayheading(heading):
+    """
+    <DOCSTRING: DISPLAY HEADING>
+    This Function prints a heading, adaptive to the length of the argument
+    """
     spacesheading = "-"*len(heading)
     print("\n", spacesheading.center(114), "\n", heading.center(114), "\n", spacesheading.center(114))
 
@@ -109,28 +195,29 @@ def help_menu():
     print(r""" 
     Features:
     1.	Menu and Save Management:
-    •	Users can select up to three available save files.
-    •	New save files allow the user to choose between a blank slate or a preloaded flowchart.
+    •	The program automatically detects a save file and loads it into the course management system
+    •	If the program detects an empty save file, it displays the create new save menu
 
-    2.	Course Flowchart and Subject Customization:
-    •	If the flowchart is selected, minor subject placeholders can be updated
-    •	Users can manually add, remove, or edit subjects even if they chose the flowchart.
+    2.	Create New Save Feature:
+    •	If a syllabus template is selected, minor subject placeholders can be updated
+    •	Users can manually edit subject code names and GPA even if they chose the syllabus template
+    •   If the start from scratch is selected, users can add their current subjects and GPA
 
     3.	Grade Input and Computation:
-    •	Users input the score they got in each output they completed. (Practical 1, Long Quiz 3).
-    •	The program automatically calculates their GPA, total units completed, remaining units.
-    •	Each course has a predefined grading system, based on each course syllabus.
-    •	The system displays if you are eligible for dean's lister and Latin honors
+    •	The program automatically calculates their term GPA and total units completed in that term
+    •	The program displays if you are eligible for dean's lister and Latin honors
 
     4.	Output and Data Management:
-    •	The program is entirely console based with ascii art and tables for organization.
-    •	The system uses a file handling system like .json files to store data.
+    •	The program is entirely console based with ascii art and tables for organization
+    •	The system uses a .json file handling system to store data
+
 """)
 
     displayheading("Credits")
     print(r"""
     This project was made by John Carlo E. Cheng Roa, as a core requirement for the course LBYCPA1-EQ3
-    With our professor, Mr. John Vincent Cortez
+    
+    DLSU Computer Engineering Student Progress Tracker - Version 0.4
 """)
 
 def create_menu():

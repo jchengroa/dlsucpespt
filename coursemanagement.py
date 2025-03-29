@@ -23,6 +23,13 @@ Version: 0.3
 > Added Exception handling in other functions
 > Optimization: Removed Variables and Simplified Code
 
+Version: 0.4
+> Implemented Course Menu
+> Implemented Edit Course in the Course Menu
+> Added System that updates the coursemenu with recent information
+> Added System that updates courses in the coursemenu
+> Added System that updates gpa in the coursemenu
+> Fixed Bugs from old code
 """
 
 # Import System Files
@@ -31,9 +38,9 @@ import json
 
 # Import Project Files
 from menu import *
+from main import clr
 
-# Functions
-
+# Function that reads the JSON file with Error Handling
 def read_jsonfile(file_name):
     if os.path.exists(file_name) and os.path.getsize(file_name) > 0:
         with open(file_name, 'r') as file:
@@ -54,18 +61,23 @@ def createorsave():
 # Functions for Create
 def createmenu():
     while True:
-        os.system('cls')
+        clr()
         logo()
         print("\n\n")
         cmloadmenu()
 
-        userinput = input(">> ")
+        try:
+            userinput = input(">> ")
+        except KeyboardInterrupt:
+            userinput = " "
         if userinput == "1": # Load Syllabus Template
             cmtemplate()
             break
         elif userinput == "2": # Start from Scratch
             cmbuilder()
             break
+        elif userinput == " ":
+            continue
         else:
             break
 
@@ -73,6 +85,7 @@ def sybcreate(n):
     errorhandline4 = 0
     syb = read_jsonfile("syllabus.json")
     coursetmp = {}
+    grades = {}
     continueloop = True
     forcequit = False
     
@@ -80,7 +93,7 @@ def sybcreate(n):
 
     for course in syb.get(sybref, []):
         while continueloop == True:
-            os.system('cls')
+            clr()
 
             logo()
             print("\n\n")
@@ -107,7 +120,7 @@ def sybcreate(n):
                 except Exception:
                     errorhandline4 = 2
                     continue
-                coursetmp[inputnc] = inputgrade
+                grades[inputnc] = inputgrade
                 errorhandline4 = 0
                 break
             elif tmpinput == "2":
@@ -118,7 +131,7 @@ def sybcreate(n):
                 except Exception:
                     errorhandline4 = 2
                     continue
-                coursetmp[inputnc] = inputgrade
+                grades[inputnc] = inputgrade
                 errorhandline4 = 0
                 break
             elif tmpinput == "exit":
@@ -130,37 +143,62 @@ def sybcreate(n):
                 continue    
         if forcequit == True:
             break
-
+        
+        coursetmp["grades"] = grades
+        coursetmp["term"] = n
         with open("savedata.json", "w") as file:
             json.dump(coursetmp, file, indent=2)
 
-def cmtemplate():
-    os.system('cls')
+    return grades
 
-    logo()
-    print("\n\n")
-    addfromsyb()
-    print("\n\n")
-    
-    terminput = input("What term are you in?\n(Enter the number only (1) or (16))\n\n>> ")
-    sybcreate(terminput)
+def cmtemplate():
+    while True:
+         clr()
+         logo()
+         print("\n\n")
+         addfromsyb()
+         print("\n\n")
+         terminput = input("\n\n>> ")
+         try:
+             terminput = int(terminput)
+         except Exception:
+             pass
+         if type(terminput) == int:
+             course = sybcreate(terminput)
+             coursemanagement(terminput, course)
+             break
+         elif terminput == "exit":
+             break
+         else:
+             continue      
 
 def cmbuilder():
     course = {}
+    grades = {}
     donotcontinue = False
 
-    os.system('cls')
-    logo()
-    print("\n\n")
-    addcourse()
-    print("\n\n")
-    terminput = input("What term are you in?\n(Enter the number only (1) or (16))\n\n>> ")
-    if terminput == "exit":
-        donotcontinue = True
+    while True:
+        clr()
+        logo()
+        print("\n\n")
+        addcourse()
+        print("\n\n")
+        terminput = input("\n\n>> ")
+        try:
+            terminput = int(terminput)
+        except Exception:
+            pass
+        if type(terminput) == int:
+            break
+        if terminput == "exit":
+            donotcontinue = True
+            break
+        else:
+             continue
 
     errorhandline3 = 0
     while donotcontinue == False:
-        os.system('cls')
+        clr()
         logo()
         print("\n\n")
         addcourse()
@@ -170,7 +208,7 @@ def cmbuilder():
         elif errorhandline3 == 2:
             print("ERROR: Invalid GPA")
         elif errorhandline3 == 3:
-            print("Course Added Successfully")
+            print("Course Added Successfully\n")
 
         courseinput = input("Enter course code: ")
         if courseinput.lower() == "exit":
@@ -193,20 +231,100 @@ def cmbuilder():
             errorhandline3 = 2
             continue
 
-        course[courseinput.upper()] = gradeinput
+        grades[courseinput.upper()] = gradeinput
         errorhandline3 = 3
 
-    with open("savedata.json", "w") as file:
-        json.dump(course, file, indent=2)
-    coursemanagement(terminput, course)
-    pass
+    if donotcontinue == False:
+        course["grades"] = grades
+        course["term"] = terminput
+        with open("savedata.json", "w") as file:
+            json.dump(course, file, indent=2)
+        coursemanagement(terminput, grades)
 
 # Functions for Load
 def lmfromfile():
-    course = read_jsonfile("savedata.json")
-    term = 0
+    data = read_jsonfile("savedata.json")
+    term = data["term"]
+    course = data["grades"]
 
     coursemanagement(term, course)
 
 def coursemanagement(term, course):
-    pass
+    while True:
+        clr()
+        termword = "Term " + str(term)
+        qry = coursemanagementmenu(term, termword, course)
+        courselist = []
+        for courses in course.keys():
+            courselist.append(courses)
+
+        usrinput = input(">> ")
+        try:
+            usrinput = int(usrinput)
+        except Exception:
+            pass
+        if usrinput == "exit":
+            break
+        if usrinput == "clean":
+            with open("savedata.json", "w") as file:
+                file.truncate(0)
+            print("\nSave File Wiped!\n")
+            input("\n Press Enter to return to main menu")
+            break
+        try:
+            if int(usrinput) > 0 and int(usrinput) < int(qry):
+                selectedcourse = courselist[int(usrinput)-1]
+
+                clr()
+                coursemanagementmenu(term, termword, course)
+                cm_editcourse(selectedcourse)
+                crsaction = input(">> ")
+                if crsaction == "1":
+                    clr()
+                    coursemanagementmenu(term, termword, course)
+                    cm_editcourse(selectedcourse, mode=2)
+                    crsaddaction = input(">>")
+                    if type(crsaddaction) == str:
+                        if len(crsaddaction) == 7:
+                            modifydata = read_jsonfile("savedata.json")
+
+                            newgrades = {}
+                            for keys, values in modifydata["grades"].items():
+                                if keys == str(selectedcourse):
+                                    newgrades[str(crsaddaction)] = values
+                                else:
+                                    newgrades[keys] = values
+
+                            modifydata["grades"] = newgrades
+                            course = modifydata["grades"]
+
+                            with open("savedata.json", "w") as file:
+                                json.dump(modifydata, file, indent=2)
+
+                if crsaction == "2":
+                    clr()
+                    coursemanagementmenu(term, termword, course)
+                    cm_editcourse(selectedcourse, mode=3)
+                    gpaaddaction = input(">> ")
+                    modifydata = read_jsonfile("savedata.json")
+                    try:
+                        newgrades = {}
+                        for keys, values in modifydata["grades"].items():
+                            if keys == str(selectedcourse):
+                                newgrades[keys] = float(gpaaddaction)
+                            else:
+                                newgrades[keys] = values
+
+                        modifydata["grades"] = newgrades
+                        course = modifydata["grades"]
+
+                        with open("savedata.json", "w") as file:
+                            json.dump(modifydata, file, indent=2)
+                    except Exception:
+                        pass
+                else:
+                    pass
+        except Exception:
+            pass
+        else:
+            pass
