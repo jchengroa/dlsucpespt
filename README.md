@@ -68,3 +68,17 @@ coursemanagement.py - Implemented Course Menu
                       
 * note, I started from 9AM and finished with bugs at 11:26PM, bruh...
 === ( Dated: March 29, 2025 @ 11:26 PM ) ===
+                      
+< < < General Version: 0.5 > > >
+                      
+main.py -             Fixed some bugs
+menu.py -             Added Menu for Other Elements of Course Management
+                      Edited the ASCII Menu for Course Management
+coursemanagement.py - Added List of Commands in Course Menu
+                      Implemented Add Course in the Course Menu
+                      Implemented Remove Course in the Course Menu
+                      Added confirmation prompt when wiping the save file
+                      Fixed Bug that runs the course menu after creating save file
+                      
+* note, This build is stable enough for release. aka all the major functions are complete :)
+=== ( Dated: March 31, 2025 @ 2:21 AM ) ===
