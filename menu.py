@@ -23,6 +23,12 @@ Version: 0.4
 > Added Menu for Course Management
 > Updated Help and Credit Doc
 > Added Docstring for new functions
+
+Version: 0.5
+> Added Menu for Other Elements of Course Management
+> Edited the ASCII Menu for Course Management
+> Build stable enough for release!
+
 """
 # Import Project File
 
@@ -120,7 +126,7 @@ def coursemanagementmenu(term, termword, course):
     logo()
     print("\n\n\n")
     n = 1
-    
+
     print(r"_______________________________________________________".center(114))
     print(r"|_____________ {COURSE MANAGEMENT MENU} ______________|".center(114))
     print(r"|                                                     |".center(114))
@@ -139,9 +145,17 @@ def coursemanagementmenu(term, termword, course):
     print(r"|                                                     |".center(114))
     print(r"|_____________________________________________________|".center(114))
     return n
-    
+
+def cm_displayoptions():
+    print("")
+    print(f"{"(a)  ADD COURSE TO SAVE FILE      ":<53}".center(114))
+    print(f"{"(r)  REMOVE COURSE FROM SAVE FILE ":<53}".center(114))
+    print(f"{"(c)  CLEAR DATA FROM SAVE FILE     ":<53}".center(114))
+    print(f"{"(e)  EXIT COURSE MANAGEMENT MENU  ":<53}".center(114))
+    print("")
+    print(f"{"EDIT COURSE BY ENTERING NUMBER NEXT TO COURSE":<53}".center(114))
+
 def cm_editcourse(course, mode=1):
-    print("\n")
     if mode == 1:
         print(r"_______________________________________________________".center(114))
         print(f"|__________________  (EDIT {course})  _________________|".center(114))
@@ -166,6 +180,33 @@ def cm_editcourse(course, mode=1):
         print(f"|                                                     |".center(114))
         print(f"|{"PRESS ENTER TO GO BACK":^53}|".center(114))
         print(r"|_____________________________________________________|".center(114))
+
+def cm_addcourse(stage=1):
+    if stage == 1:
+        print(r"______________________________________________".center(114))
+        print(f"|_______________  (ADD COURSE)  ______________|".center(114))
+        print(r"|                                             |".center(114))
+        print(f"|            ENTER THE COURSE CODE            |".center(114))
+        print(f"|                                             |".center(114))
+        print(f"|           PRESS ENTER  TO GO BACK           |".center(114))
+        print(r"|_____________________________________________|".center(114))
+    if stage == 2:
+        print(r"______________________________________________".center(114))
+        print(f"|_______________  (ADD COURSE)  ______________|".center(114))
+        print(r"|                                             |".center(114))
+        print(f"|            ENTER THE COURSE  GPA            |".center(114))
+        print(f"|                                             |".center(114))
+        print(f"|           PRESS ENTER  TO GO BACK           |".center(114))
+        print(r"|_____________________________________________|".center(114))
+
+def cm_deletecourse():
+    print(r"___________________________________________________________________".center(114))
+    print(f"|_______________________  (REMOVE  COURSE)  ______________________|".center(114))
+    print(r"|                                                                 |".center(114))
+    print(f"|   ENTER THE NUMBER NEXT TO COURSE TO REMOVE IT FROM SAVE FILE   |".center(114))
+    print(f"|                                                                 |".center(114))
+    print(f"|                     PRESS ENTER  TO GO BACK                     |".center(114))
+    print(r"|_________________________________________________________________|".center(114))
 
 def displayheading(heading):
     """

@@ -21,6 +21,11 @@ Version: 0.3
 Version: 0.4
 > Added Error handling for clearing screen for macOS and Linux devices
 > Transferred Clean function to the coursemanagement menu
+
+Version: 0.5
+> Fixed some bugs
+> Build stable enough for release!
+
 """
 
 # Import Project Files
