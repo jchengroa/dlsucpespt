@@ -82,3 +82,13 @@ coursemanagement.py - Added List of Commands in Course Menu
                       
 * note, This build is stable enough for release. aka all the major functions are complete :)
 === ( Dated: March 31, 2025 @ 2:21 AM ) ===
+
+< < < General Version: 0.5.1 > > >
+                      
+main.py -             Changed input of some variables
+                      Fixed Are You Sure when exiting, behaves as expected now.
+menu.py -             Fixed spacing of a certain ASCII dialog
+                      Changed ASCII dialog to be more consistent
+coursemanagement.py - Fixed Bug that made the add course in the course menu to not work
+
+=== ( Dated: March 31, 2025 @ 1:11 PM ) ===
