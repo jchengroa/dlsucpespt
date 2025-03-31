@@ -39,6 +39,8 @@ Version: 0.5
 > Fixed Bug that runs the course menu after creating save file
 > Build stable enough for release!
 
+Version: 0.5.1
+> Fixed Bug that made the add course in the course menu to not work
 """
 
 # Import System Files
@@ -277,15 +279,17 @@ def coursemanagement(term, course):
                 with open("savedata.json", "w") as file:
                     file.truncate(0)
                 print("\nSave File Wiped!\n")
-                input("\n Press Enter to return to main menu")
+                input("<< < Press Enter to Exit this Page > >>\n")
                 break
             else:
                 pass
+        import json
+
         if usrinput == "a":
             clr()
             coursemanagementmenu(term, termword, course)
             cm_addcourse()
-
+            
             crsaddmenuaction = input(">> ")
             
             if len(crsaddmenuaction) == 7:
@@ -296,16 +300,21 @@ def coursemanagement(term, course):
                 crsaddgpaction = input(">> ")
 
                 try:
-                    if crsaddgpaction > 0 and crsaddgpaction <=4:
-
+                    crsaddgpaction = int(crsaddgpaction)  # Convert input to integer
+                    if 0 < crsaddgpaction <= 4:
+                        keys = crsaddmenuaction.upper()
+                        values = float(crsaddgpaction)
                         modifydata = read_jsonfile("savedata.json")
-                        modifydata["grades"][crsaddmenuaction.upper()] = float(crsaddgpaction)
-                        course = modifydata["grades"]
+                        modifydata["grades"][keys] = values
 
                         with open("savedata.json", "w") as file:
                             json.dump(modifydata, file, indent=2)
+
+                        course = modifydata["grades"]
+
                 except Exception:
                     pass
+
         if usrinput == "r":
             clr()
             coursemanagementmenu(term, termword, course)

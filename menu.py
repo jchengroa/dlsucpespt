@@ -29,6 +29,10 @@ Version: 0.5
 > Edited the ASCII Menu for Course Management
 > Build stable enough for release!
 
+Version: 0.5.1
+> Fixed spacing of a certain ASCII dialog
+> Changed ASCII dialog to be more consistent
+
 """
 # Import Project File
 
@@ -74,6 +78,7 @@ def cmloadmenu():
     print(r"   | |                                            | |   ".center(114))
     print(r"   | |       (1) -   LOAD SYLLABUS TEMPLATE       | |   ".center(114))
     print(r"   | |       (2) -      CREATE FROM SCRATCH       | |   ".center(114))
+    print(r"   | |                                            | |   ".center(114))
     print(r"   | |         (PRESS ANY KEY TO GO BACK)         | |   ".center(114))
     print(r" __| |____________________________________________| |__ ".center(114))
     print(r"(______________________________________________________)".center(114))
@@ -83,40 +88,40 @@ def addcourse():
     <DOCSTRING: COURSE MANAGEMENT ADD FROM SCRATCH>
     This Function prints a dialog for the add from scratch section
     """
-    print(r"+_____________________________________+".center(114))
+    print(r"_______________________________________".center(114))
     print(r"|_________ Add From Scratch __________|".center(114))
     print(r"|                                     |".center(114))
     print(r"|        What term are you in?        |".center(114))
     print(r"|                                     |".center(114))
     print(r"| Enter (exit)  in prompt to go back. |".center(114))
-    print(r"+_____________________________________+".center(114))
+    print(r"|_____________________________________|".center(114))
 
 def addfromsyb():
     """
     <DOCSTRING: COURSE MANAGEMENT ADD FROM SYLLABUS>
     This Function prints a dialog for the add from syllabus section
     """
-    print(r"+______________________________________+".center(114))
+    print(r"________________________________________".center(114))
     print(r"|____  Add From Syllabus Template  ____|".center(114))
     print(r"|                                      |".center(114))
     print(r"|        What term are you in?         |".center(114))
     print(r"|                                      |".center(114))
     print(r"|  Enter (exit)  in prompt to go back. |".center(114))
-    print(r"+____________________________________ _+".center(114))
+    print(r"|______________________________________|".center(114))
 
 def sybcourse(course):
     """
     <DOCSTRING: COURSE MANAGEMENT ADD FROM SYLLABUS EDIT>
     This Function prints a dialog to edit through the courses in the syllabus in the selected term
     """
-    print(r"+_____________________________________+".center(114))
+    print(r"_______________________________________".center(114))
     print(f"|______________ {course} ______________|".center(114))
     print(r"|                                     |".center(114))
     print(r"|       (1) - Change Course Code      |".center(114))
     print(r"|       (2) - Input GPA               |".center(114))
     print(r"|                                     |".center(114))
     print(r"|       (ENTER (exit) TO ABORT)       |".center(114))
-    print(r"+_____________________________________+".center(114))
+    print(r"|_____________________________________|".center(114))
 
 def coursemanagementmenu(term, termword, course):
     """
@@ -147,6 +152,10 @@ def coursemanagementmenu(term, termword, course):
     return n
 
 def cm_displayoptions():
+    """
+    <DOCSTRING: COURSE MANAGEMENT MENU DISPLAY OPTIONS>
+    This Function displays the options the user can do in the course management menu
+    """
     print("")
     print(f"{"(a)  ADD COURSE TO SAVE FILE      ":<53}".center(114))
     print(f"{"(r)  REMOVE COURSE FROM SAVE FILE ":<53}".center(114))
@@ -176,7 +185,7 @@ def cm_editcourse(course, mode=1):
         print(r"_______________________________________________________".center(114))
         print(f"|__________________  (EDIT {course})  _________________|".center(114))
         print(r"|                                                     |".center(114))
-        print(f"|                 ENTER {course} NEW GPA              |".center(114))
+        print(f"|                 ENTER {course}  NEW GPA              |".center(114))
         print(f"|                                                     |".center(114))
         print(f"|{"PRESS ENTER TO GO BACK":^53}|".center(114))
         print(r"|_____________________________________________________|".center(114))
@@ -258,7 +267,7 @@ def help_menu():
     print(r"""
     This project was made by John Carlo E. Cheng Roa, as a core requirement for the course LBYCPA1-EQ3
     
-    DLSU Computer Engineering Student Progress Tracker - Version 0.4
+    DLSU Computer Engineering Student Progress Tracker - Version 0.5.1
 """)
 
 def create_menu():

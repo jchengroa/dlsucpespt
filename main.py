@@ -26,6 +26,10 @@ Version: 0.5
 > Fixed some bugs
 > Build stable enough for release!
 
+Version: 0.5.1
+> Changed input of some variables
+> Fixed Are You Sure when exiting, behaves as expected now.
+
 """
 
 # Import Project Files
@@ -79,27 +83,29 @@ def main():
             errorhandline1 = 0
             clr()
             help_menu()
-            input("<< < Enter Any Character to Exit this Page > >>\n")
+            input("<< < Press Enter to Exit this Page > >>\n")
             pass
         elif options == "3":
             errorhandline1 = 0
-            clr()
-            print("Are you sure?\n[1] - Yes\n[2] - No\n")
-            try:
-                areyousure = input(">> ")
-            except KeyboardInterrupt:
-                areyousure = " "
-            if areyousure == "1":
+            while True:
+                exit_confirmed = False
+                clr()
+                print("Are you sure?\n[1] - Yes\n[2] - No\n")
+                try:
+                    areyousure = input(">> ")
+                except KeyboardInterrupt:
+                    areyousure = " "
+                if areyousure == "1":
+                    exit_confirmed = True
+                    break
+                elif areyousure == "2":
+                    break
+                else:
+                    continue
+
+            if exit_confirmed == True:
                 clr()
                 break
-            elif areyousure == "2":
-                continue
-            else:
-                errorhandline1 = 1
-                continue
-        elif options == "exit":
-            clr()
-            break
         else:
             errorhandline1 = 1
 
