@@ -304,7 +304,7 @@ def help_menu():
     print(r"""
     This project was made by John Carlo E. Cheng Roa, as a core requirement for the course LBYCPA1-EQ3
     
-    DLSU Computer Engineering Student Progress Tracker - Version 0.5.1
+    DLSU Computer Engineering Student Progress Tracker - Version 0.6
 """)
 
 def create_menu():
