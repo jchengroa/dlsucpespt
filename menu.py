@@ -33,10 +33,17 @@ Version: 0.5.1
 > Fixed spacing of a certain ASCII dialog
 > Changed ASCII dialog to be more consistent
 
+Version: 0.6
+> Edited the ASCII Menu for Course Management
+> Added Units Display in Course Management
+> Added Term GPA Display
+> Added Dean's List Eligibility, from none to second lister to first lister
+
 """
 # Import Project File
 
 # Import System Files
+import json
 
 # Variables
 
@@ -123,7 +130,7 @@ def sybcourse(course):
     print(r"|       (ENTER (exit) TO ABORT)       |".center(114))
     print(r"|_____________________________________|".center(114))
 
-def coursemanagementmenu(term, termword, course):
+def coursemanagementmenu(term, termword, course, tgpa, unitlist):
     """
     <DOCSTRING: COURSE MANAGEMENT MENU>
     This Function displays the courses and gpa in the savedata.json file
@@ -132,23 +139,52 @@ def coursemanagementmenu(term, termword, course):
     print("\n\n\n")
     n = 1
 
-    print(r"_______________________________________________________".center(114))
-    print(r"|_____________ {COURSE MANAGEMENT MENU} ______________|".center(114))
-    print(r"|                                                     |".center(114))
+    print(r"╔════════════════════════════════════════════════════════╗".center(114))
+    print(r"║                 COURSE MANAGEMENT MENU                 ║".center(114))
+    print(r"╚════════════════════════════════════════════════════════╝".center(114))
+    print("")
     if len(str(term)) == 2:
-        print(f"|{termword:^53}|".center(114))
+        print(f"{termword:^53}".center(114))
     elif len(str(term)) == 1:
-        print(f"|{termword:^53}|".center(114))
-    print(r"|                                                     |".center(114))
+        print(f"{termword:^53}".center(114))
+    print("")
+    print(r"╔════════════════════════════════════════════════════════╗".center(114))
+    print(r"║    NUMBER    COURSE     UNITS           GPA            ║".center(114))
+    print(r"║                                                        ║".center(114))
+
     for keys, values in course.items():
-        try:
-            displaygrades = f"({str(n)})    -    {keys} - {values:.1f}"
-        except TypeError:
-            displaygrades = f"({str(n)})    -    {keys} - {float(values):.1f}"
-        print(f"|{displaygrades:^53}|".center(114))
+        if type(values) == float:
+            displaygrades = f"     ({str(n)})      {keys}     {unitlist[n-1]}              {values:.1f}            "
+        else:
+            displaygrades = f"     ({str(n)})      {keys}     {unitlist[n-1]}              {values}            "
+        print(f"║{displaygrades:^53}║".center(114))
         n += 1
-    print(r"|                                                     |".center(114))
-    print(r"|_____________________________________________________|".center(114))
+
+    print(r"║                                                        ║".center(114))
+    print(f"║     TERM GPA: {tgpa}                                     ║".center(114))
+    
+    gpacheck = 0
+    for gpachecker in course.values():
+        if gpachecker == "  P":
+            continue
+        if gpachecker == "  F":
+            gpacheck += 1
+            break
+        if float(gpachecker) < 2:
+            gpacheck += 1
+            continue
+        if float(gpachecker) >= 2:
+            continue
+
+    if float(tgpa) >= 3.0 and float(tgpa) < 3.5 and gpacheck == 0:
+        print(r"║     DEANS LISTER: 2ND                                  ║".center(114))
+    elif float(tgpa) >= 3.5 and gpacheck == 0:
+        print(r"║     DEANS LISTER: 1ST                                  ║".center(114))
+    else:
+        print(r"║     DEANS LISTER: (X)                                  ║".center(114))
+
+    print(r"║                                                        ║".center(114))
+    print(r"╚════════════════════════════════════════════════════════╝".center(114))
     return n
 
 def cm_displayoptions():
@@ -157,12 +193,12 @@ def cm_displayoptions():
     This Function displays the options the user can do in the course management menu
     """
     print("")
-    print(f"{"(a)  ADD COURSE TO SAVE FILE      ":<53}".center(114))
-    print(f"{"(r)  REMOVE COURSE FROM SAVE FILE ":<53}".center(114))
-    print(f"{"(c)  CLEAR DATA FROM SAVE FILE     ":<53}".center(114))
-    print(f"{"(e)  EXIT COURSE MANAGEMENT MENU  ":<53}".center(114))
+    print(f"{"(a)  ADD COURSE TO SAVE FILE      ":<58}".center(114))
+    print(f"{"(r)  REMOVE COURSE FROM SAVE FILE ":<58}".center(114))
+    print(f"{"(c)  CLEAR DATA FROM SAVE FILE     ":<58}".center(114))
+    print(f"{"(e)  EXIT COURSE MANAGEMENT MENU  ":<58}".center(114))
     print("")
-    print(f"{"EDIT COURSE BY ENTERING NUMBER NEXT TO COURSE":<53}".center(114))
+    print(f"{"EDIT COURSE BY ENTERING NUMBER NEXT TO COURSE":<58}".center(114))
 
 def cm_editcourse(course, mode=1):
     if mode == 1:
@@ -171,6 +207,7 @@ def cm_editcourse(course, mode=1):
         print(r"|                                                     |".center(114))
         print(f"|{"(1)   EDIT COURSE CODE"  :^53}|".center(114))
         print(f"|{"(2)    EDIT COURSE GPA":^53}|".center(114))
+        print(r"|                                                     |".center(114))
         print(f"|{"PRESS ENTER TO GO BACK":^53}|".center(114))
         print(r"|_____________________________________________________|".center(114))
     if mode == 2:

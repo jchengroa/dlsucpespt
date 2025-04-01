@@ -41,6 +41,15 @@ Version: 0.5
 
 Version: 0.5.1
 > Fixed Bug that made the add course in the course menu to not work
+
+Version: 0.6
+> Implemented Error Handling for missing savedata.json file
+> Allowed GPA to input P/F Grades
+> Added Term GPA Computation in Course Menu
+> Added Unit per Subject computation
+> Fixed Bug in Start from Scratch that will not recognize GPA input
+> If savedata grades contain no keys nor values, file wiper implemented
+
 """
 
 # Import System Files
@@ -54,20 +63,56 @@ from main import clr
 # Function that reads the JSON file with Error Handling
 def read_jsonfile(file_name):
     if os.path.exists(file_name) and os.path.getsize(file_name) > 0:
-        with open(file_name, 'r') as file:
-            try:
+        try:
+            with open(file_name, 'r') as file:
                 data = json.load(file)
-                return data
-            except json.JSONDecodeError:
-                return "Invalid file format"
+            if file_name == "savedata.json":
+                if data["grades"] == {}:
+                    with open(file_name, 'w') as rwfile:
+                        rwfile.truncate(0)
+            return data
+        except json.JSONDecodeError:
+            return "Invalid file format"
     else:
-        return "File is either corrupted or does not exist"
+        try:
+            with open(file_name, 'x') as file:
+                return {}
+        except FileExistsError:
+            try:
+                with open(file_name, 'r') as file:
+                    return json.load(file)
+            except json.JSONDecodeError:
+                return {}
 
 def createorsave():
+    read_jsonfile("savedata.json")
     if os.path.getsize("savedata.json") == 0:
         createmenu()
     elif os.path.getsize("savedata.json") > 0:
         lmfromfile()
+
+# Functions for Term GPA Computation
+def tgpa_calc(impcourse):
+    with open("syllabus.json", 'r') as file:
+        coursewithunits = json.load(file)
+
+    totalunits = 0
+    cwuh = {}
+    for course in impcourse.keys():
+        for refcourse, units in coursewithunits["course_units"].items():
+            if course == refcourse:
+                cwuh[refcourse] = units
+                totalunits += units
+    
+    honorpoints = 0
+    for course, gpa in impcourse.items():
+        for refcourse, refunits in cwuh.items():
+            if course == refcourse:
+                if type(gpa) != str:
+                    honorpoints += (gpa*refunits)
+    
+    result = honorpoints/totalunits
+    return str(f"{result:.2f}")
 
 # Functions for Create
 def createmenu():
@@ -125,24 +170,36 @@ def sybcreate(n):
                 if len(inputnc.lower()) != 7:
                     errorhandline4 = 1
                     continue
-                inputgrade = input("\n\nWhat is your GPA?\n>> ")
+                gradeinput = input("\n\nWhat is your GPA?\n>> ")
                 try:
-                    inputgrade = float(inputgrade)
+                    if gradeinput == "P" or gradeinput == "F" or gradeinput == "p" or gradeinput == "f":
+                        gradeinput = gradeinput.upper()
+                    elif gradeinput > 0 and gradeinput <= 4:
+                        gradeinput = float(gradeinput)
+                    elif gradeinput < 0 and gradeinput > 4:
+                        errorhandline4 = 2
+                        continue
                 except Exception:
                     errorhandline4 = 2
                     continue
-                grades[inputnc] = inputgrade
+                grades[inputnc] = gradeinput
                 errorhandline4 = 0
                 break
             elif tmpinput == "2":
                 inputnc = course
-                inputgrade = input("What is your GPA?\n>> ")
+                gradeinput = input("What is your GPA?\n>> ")
                 try:
-                    inputgrade = float(inputgrade)
+                    if gradeinput == "P" or gradeinput == "F" or gradeinput == "p" or gradeinput == "f":
+                        gradeinput = "  " + gradeinput.upper()
+                    elif gradeinput:
+                        gradeinput = float(gradeinput)
+                    elif gradeinput < 0 and gradeinput > 4:
+                        errorhandline4 = 2
+                        continue
                 except Exception:
                     errorhandline4 = 2
                     continue
-                grades[inputnc] = inputgrade
+                grades[inputnc] = gradeinput
                 errorhandline4 = 0
                 break
             elif tmpinput == "exit":
@@ -224,18 +281,16 @@ def cmbuilder():
         if len(courseinput.lower()) != 7:
             errorhandline3 = 1
             continue
-
-        print("\n\n")
-
+        gradeinput = input("Input GPA in course: ")
         try:
-            gradeinput = float(input("Input GPA in course: "))
+            if gradeinput == "P" or gradeinput == "F" or gradeinput == "p" or gradeinput == "f":
+                gradeinput = gradeinput.upper()
+            elif float(gradeinput) > 0 and float(gradeinput) <= 4:
+                gradeinput = float(gradeinput)
+            elif float(gradeinput) < 0 and float(gradeinput) > 4:
+                errorhandline3 = 2
+                continue
         except Exception:
-            errorhandline3 = 2
-            continue
-        if float(gradeinput) > 4 and int(gradeinput) < 0:
-            errorhandline3 = 2
-            continue
-        if type(gradeinput) != float:
             errorhandline3 = 2
             continue
 
@@ -256,11 +311,21 @@ def lmfromfile():
 
     coursemanagement(term, course)
 
+# The Course Management Function
 def coursemanagement(term, course):
     while True:
         clr()
         termword = "Term " + str(term)
-        qry = coursemanagementmenu(term, termword, course)
+        tgpa = tgpa_calc(course)
+
+        unitlist = []
+        cwu = read_jsonfile("syllabus.json")
+        for rkeys in course.keys():
+            for ukeys, uvalues in cwu["course_units"].items():
+                if rkeys == ukeys:
+                    unitlist.append(uvalues)
+
+        qry = coursemanagementmenu(term, termword, course, tgpa, unitlist)
         cm_displayoptions()
         courselist = []
         for courses in course.keys():
@@ -271,8 +336,12 @@ def coursemanagement(term, course):
             usrinput = int(usrinput)
         except Exception:
             pass
+
+        # Exit Menu
         if usrinput == "e":
             break
+
+        # Clean Save File
         if usrinput == "c":
             confirmation_deletion = input("Are You Sure? Performing this action can't be undone!\nEnter 'Y' or 'yes' to continue>> ")
             if confirmation_deletion == "Y" or confirmation_deletion == "yes":
@@ -285,39 +354,40 @@ def coursemanagement(term, course):
                 pass
         import json
 
+        # Add Course
         if usrinput == "a":
             clr()
-            coursemanagementmenu(term, termword, course)
+            coursemanagementmenu(term, termword, course, tgpa, unitlist)
             cm_addcourse()
             
             crsaddmenuaction = input(">> ")
             
             if len(crsaddmenuaction) == 7:
                 clr()
-                coursemanagementmenu(term, termword, course)
+                coursemanagementmenu(term, termword, course, tgpa, unitlist)
                 cm_addcourse(stage=2)
 
                 crsaddgpaction = input(">> ")
-
                 try:
-                    crsaddgpaction = int(crsaddgpaction)  # Convert input to integer
-                    if 0 < crsaddgpaction <= 4:
-                        keys = crsaddmenuaction.upper()
+                    keys = crsaddmenuaction.upper()
+                    if crsaddgpaction == "P" or crsaddgpaction == "F" or crsaddgpaction == "p" or crsaddgpaction == "f":
+                        values = "  " + crsaddgpaction.upper()
+                    elif float(crsaddgpaction) > 0 and float(crsaddgpaction) <= 4:
                         values = float(crsaddgpaction)
-                        modifydata = read_jsonfile("savedata.json")
-                        modifydata["grades"][keys] = values
+                    modifydata = read_jsonfile("savedata.json")
+                    modifydata["grades"][keys] = values
 
-                        with open("savedata.json", "w") as file:
-                            json.dump(modifydata, file, indent=2)
+                    with open("savedata.json", "w") as file:
+                        json.dump(modifydata, file, indent=2)
 
-                        course = modifydata["grades"]
-
+                    course = modifydata["grades"]
                 except Exception:
                     pass
 
+        # Remove Course
         if usrinput == "r":
             clr()
-            coursemanagementmenu(term, termword, course)
+            coursemanagementmenu(term, termword, course, tgpa, unitlist)
             cm_deletecourse()
 
             crsaction = input(">> ")
@@ -341,17 +411,19 @@ def coursemanagement(term, course):
                         json.dump(modifydata, file, indent=2)
             except Exception:
                 pass
+
+        # Modify Courses in Menu    
         try:
             if int(usrinput) > 0 and int(usrinput) < int(qry):
                 selectedcourse = courselist[int(usrinput)-1]
 
                 clr()
-                coursemanagementmenu(term, termword, course)
+                coursemanagementmenu(term, termword, course, tgpa, unitlist)
                 cm_editcourse(selectedcourse)
                 crsaction = input(">> ")
                 if crsaction == "1":
                     clr()
-                    coursemanagementmenu(term, termword, course)
+                    coursemanagementmenu(term, termword, course, tgpa, unitlist)
                     cm_editcourse(selectedcourse, mode=2)
                     crsaddaction = input(">>")
                     if type(crsaddaction) == str:
@@ -373,15 +445,24 @@ def coursemanagement(term, course):
 
                 if crsaction == "2":
                     clr()
-                    coursemanagementmenu(term, termword, course)
+                    coursemanagementmenu(term, termword, course, tgpa, unitlist)
                     cm_editcourse(selectedcourse, mode=3)
                     gpaaddaction = input(">> ")
+
+                    try:
+                        if gpaaddaction == "P" or gpaaddaction == "F" or gpaaddaction == "p" or gpaaddaction == "f":
+                            gpaaddaction = "  " + gpaaddaction.upper()
+                        elif float(gpaaddaction) > 0 and float(gpaaddaction) <= 4:
+                            gpaaddaction = float(gpaaddaction)
+                    except Exception:
+                        pass
+
                     modifydata = read_jsonfile("savedata.json")
                     try:
                         newgrades = {}
                         for keys, values in modifydata["grades"].items():
                             if keys == str(selectedcourse):
-                                newgrades[keys] = float(gpaaddaction)
+                                newgrades[keys] = gpaaddaction
                             else:
                                 newgrades[keys] = values
 

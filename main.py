@@ -30,6 +30,9 @@ Version: 0.5.1
 > Changed input of some variables
 > Fixed Are You Sure when exiting, behaves as expected now.
 
+Version: 0.6
+> Updated Docstring
+
 """
 
 # Import Project Files
@@ -57,7 +60,7 @@ def clr():
 def main():
     """
     <DOCSTRING: MAIN>
-    This Function is where the program starts and updates!
+    This Function is where the program starts!
     """
 
     # Local Variable
