@@ -92,3 +92,21 @@ menu.py -             Fixed spacing of a certain ASCII dialog
 coursemanagement.py - Fixed Bug that made the add course in the course menu to not work
 
 === ( Dated: March 31, 2025 @ 1:11 PM ) ===
+
+< < < General Version: 0.6 > > >
+
+Final Feature Build before Initial Release
+
+main.py -             Updated Docstring
+menu.py -             Edited the ASCII Menu for Course Management
+                      Added Units Display in Course Management
+                      Added Term GPA Display
+                      Added Dean's List Eligibility, from none to second lister to first lister
+coursemanagement.py - Implemented Error Handling for missing savedata.json file
+                      Allowed GPA to input P/F Grades
+                      Added Term GPA Computation in Course Menu
+                      Added Unit per Subject computation
+                      Fixed Bug in Start from Scratch that will not recognize GPA input
+                      If savedata grades contain no keys nor values, file wiper implemented
+
+=== ( Dated: April 1, 2025 @ 3:26 PM ) ===
