@@ -33,6 +33,9 @@ Version: 0.5.1
 Version: 0.6
 > Updated Docstring
 
+Version: 0.6.1
+> Updated Docstirng
+
 """
 
 # Import Project Files
@@ -45,11 +48,11 @@ import os
 # Variables
 
 
-# Functions
+# Main Functions
 def clr():
     """
     <DOCSTRING: CLR>
-    This function clears the screen, adaptive to any OS
+    This function clears the screen, Adaptive to any OS.
     """
     try:
         os.system('cls') # Windows based system

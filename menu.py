@@ -39,6 +39,10 @@ Version: 0.6
 > Added Term GPA Display
 > Added Dean's List Eligibility, from none to second lister to first lister
 
+Version: 0.6.1
+> Completed Docstring for all functions
+> Edited the Menu Displays from ASCII to UNICODE
+
 """
 # Import Project File
 
@@ -95,40 +99,42 @@ def addcourse():
     <DOCSTRING: COURSE MANAGEMENT ADD FROM SCRATCH>
     This Function prints a dialog for the add from scratch section
     """
-    print(r"_______________________________________".center(114))
-    print(r"|_________ Add From Scratch __________|".center(114))
-    print(r"|                                     |".center(114))
-    print(r"|        What term are you in?        |".center(114))
-    print(r"|                                     |".center(114))
-    print(r"| Enter (exit)  in prompt to go back. |".center(114))
-    print(r"|_____________________________________|".center(114))
+    print(r"╔══════════════════════════════════════╗".center(114))
+    print(r"║           Add From Scratch           ║".center(114))
+    print(r"╚══════════════════════════════════════╝".center(114))
+    print(r"╔══════════════════════════════════════╗".center(114))
+    print(r"║         What term are you in?        ║".center(114))
+    print(r"║                                      ║".center(114))
+    print(r"║  Enter (exit) in prompt to go back.  ║".center(114))
+    print(r"╚══════════════════════════════════════╝".center(114))
 
 def addfromsyb():
     """
     <DOCSTRING: COURSE MANAGEMENT ADD FROM SYLLABUS>
     This Function prints a dialog for the add from syllabus section
     """
-    print(r"________________________________________".center(114))
-    print(r"|____  Add From Syllabus Template  ____|".center(114))
-    print(r"|                                      |".center(114))
-    print(r"|        What term are you in?         |".center(114))
-    print(r"|                                      |".center(114))
-    print(r"|  Enter (exit)  in prompt to go back. |".center(114))
-    print(r"|______________________________________|".center(114))
+    print(r"╔══════════════════════════════════════╗".center(114))
+    print(r"║      Add From Syllabus Template      ║".center(114))
+    print(r"╚══════════════════════════════════════╝".center(114))
+    print(r"╔══════════════════════════════════════╗".center(114))
+    print(r"║        What term are you in?         ║".center(114))
+    print(r"║                                      ║".center(114))
+    print(r"║  Enter (exit)  in prompt to go back. ║".center(114))
+    print(r"╚══════════════════════════════════════╝".center(114))
 
 def sybcourse(course):
     """
     <DOCSTRING: COURSE MANAGEMENT ADD FROM SYLLABUS EDIT>
     This Function prints a dialog to edit through the courses in the syllabus in the selected term
     """
-    print(r"_______________________________________".center(114))
-    print(f"|______________ {course} ______________|".center(114))
-    print(r"|                                     |".center(114))
-    print(r"|       (1) - Change Course Code      |".center(114))
-    print(r"|       (2) - Input GPA               |".center(114))
-    print(r"|                                     |".center(114))
-    print(r"|       (ENTER (exit) TO ABORT)       |".center(114))
-    print(r"|_____________________________________|".center(114))
+    print(r"╔═════════════════════════════════════╗".center(114))
+    print(f"║               {course}               ║".center(114))
+    print(r"║                                     ║".center(114))
+    print(r"║       (1) - Change Course Code      ║".center(114))
+    print(r"║       (2) - Input GPA               ║".center(114))
+    print(r"║                                     ║".center(114))
+    print(r"║       (ENTER (exit) TO ABORT)       ║".center(114))
+    print(r"╚═════════════════════════════════════╝".center(114))
 
 def coursemanagementmenu(term, termword, course, tgpa, unitlist):
     """
@@ -201,58 +207,70 @@ def cm_displayoptions():
     print(f"{"EDIT COURSE BY ENTERING NUMBER NEXT TO COURSE":<58}".center(114))
 
 def cm_editcourse(course, mode=1):
+    """
+    <DOCSTRING: COURSE MANAGEMENT EDIT COURSE MENU>
+    This Function displays the edit options the user can do after selecting a course
+    """
     if mode == 1:
-        print(r"_______________________________________________________".center(114))
-        print(f"|__________________  (EDIT {course})  _________________|".center(114))
-        print(r"|                                                     |".center(114))
-        print(f"|{"(1)   EDIT COURSE CODE"  :^53}|".center(114))
-        print(f"|{"(2)    EDIT COURSE GPA":^53}|".center(114))
-        print(r"|                                                     |".center(114))
-        print(f"|{"PRESS ENTER TO GO BACK":^53}|".center(114))
-        print(r"|_____________________________________________________|".center(114))
+        print(r"╔═════════════════════════════════════════════════════╗".center(114))
+        print(f"║                    (EDIT {course})                   ║".center(114))
+        print(r"║                                                     ║".center(114))
+        print(f"║{"(1)   EDIT COURSE CODE"  :^53}║".center(114))
+        print(f"║{"(2)    EDIT COURSE GPA":^53}║".center(114))
+        print(r"║                                                     ║".center(114))
+        print(f"║{"PRESS ENTER TO GO BACK":^53}║".center(114))
+        print(r"╚═════════════════════════════════════════════════════╝".center(114))
     if mode == 2:
-        print(r"_______________________________________________________".center(114))
-        print(f"|__________________  (EDIT {course})  _________________|".center(114))
-        print(r"|                                                     |".center(114))
-        print(f"|             ENTER {course} NEW COURSE CODE           |".center(114))
-        print(f"|                                                     |".center(114))
-        print(f"|{"PRESS ENTER TO GO BACK":^53}|".center(114))
-        print(r"|_____________________________________________________|".center(114))
+        print(r"╔═════════════════════════════════════════════════════╗".center(114))
+        print(f"║                    (EDIT {course})                   ║".center(114))
+        print(r"║                                                     ║".center(114))
+        print(f"║             ENTER {course} NEW COURSE CODE           ║".center(114))
+        print(f"║                                                     ║".center(114))
+        print(f"║{"PRESS ENTER TO GO BACK":^53}║".center(114))
+        print(r"╚═════════════════════════════════════════════════════╝".center(114))
     if mode == 3:
-        print(r"_______________________________________________________".center(114))
-        print(f"|__________________  (EDIT {course})  _________________|".center(114))
-        print(r"|                                                     |".center(114))
-        print(f"|                 ENTER {course}  NEW GPA              |".center(114))
-        print(f"|                                                     |".center(114))
-        print(f"|{"PRESS ENTER TO GO BACK":^53}|".center(114))
-        print(r"|_____________________________________________________|".center(114))
+        print(r"╔═════════════════════════════════════════════════════╗".center(114))
+        print(f"║                    (EDIT {course})                   ║".center(114))
+        print(r"║                                                     ║".center(114))
+        print(f"║                 ENTER {course} NEW GPA               ║".center(114))
+        print(f"║                                                     ║".center(114))
+        print(f"║{"PRESS ENTER TO GO BACK":^53}║".center(114))
+        print(r"╚═════════════════════════════════════════════════════╝".center(114))
 
 def cm_addcourse(stage=1):
+    """
+    <DOCSTRING: COURSE MANAGEMENT ADD COURSE MENU>
+    This Function displays the add course (course code and gpa)
+    """
     if stage == 1:
-        print(r"______________________________________________".center(114))
-        print(f"|_______________  (ADD COURSE)  ______________|".center(114))
-        print(r"|                                             |".center(114))
-        print(f"|            ENTER THE COURSE CODE            |".center(114))
-        print(f"|                                             |".center(114))
-        print(f"|           PRESS ENTER  TO GO BACK           |".center(114))
-        print(r"|_____________________________________________|".center(114))
+        print(r"╔═════════════════════════════════════════════╗".center(114))
+        print(f"║                 (ADD COURSE)                ║".center(114))
+        print(r"║                                             ║".center(114))
+        print(f"║            ENTER THE COURSE CODE            ║".center(114))
+        print(f"║                                             ║".center(114))
+        print(f"║           PRESS ENTER  TO GO BACK           ║".center(114))
+        print(r"╚═════════════════════════════════════════════╝".center(114))
     if stage == 2:
-        print(r"______________________________________________".center(114))
-        print(f"|_______________  (ADD COURSE)  ______________|".center(114))
-        print(r"|                                             |".center(114))
-        print(f"|            ENTER THE COURSE  GPA            |".center(114))
-        print(f"|                                             |".center(114))
-        print(f"|           PRESS ENTER  TO GO BACK           |".center(114))
-        print(r"|_____________________________________________|".center(114))
+        print(r"╔═════════════════════════════════════════════╗".center(114))
+        print(f"║                 (ADD COURSE)                ║".center(114))
+        print(r"║                                             ║".center(114))
+        print(f"║            ENTER THE COURSE  GPA            ║".center(114))
+        print(f"║                                             ║".center(114))
+        print(f"║           PRESS ENTER  TO GO BACK           ║".center(114))
+        print(r"╚═════════════════════════════════════════════╝".center(114))
 
 def cm_deletecourse():
-    print(r"___________________________________________________________________".center(114))
-    print(f"|_______________________  (REMOVE  COURSE)  ______________________|".center(114))
-    print(r"|                                                                 |".center(114))
-    print(f"|   ENTER THE NUMBER NEXT TO COURSE TO REMOVE IT FROM SAVE FILE   |".center(114))
-    print(f"|                                                                 |".center(114))
-    print(f"|                     PRESS ENTER  TO GO BACK                     |".center(114))
-    print(r"|_________________________________________________________________|".center(114))
+    """
+    <DOCSTRING: COURSE MANAGEMENT DELETE COURSE MENU>
+    This Function displays the instructions on how to remove a course entry
+    """
+    print(r"╔═════════════════════════════════════════════════════════════════╗".center(114))
+    print(f"║                         (REMOVE  COURSE)                        ║".center(114))
+    print(r"║                                                                 ║".center(114))
+    print(f"║   ENTER THE NUMBER NEXT TO COURSE TO REMOVE IT FROM SAVE FILE   ║".center(114))
+    print(f"║                                                                 ║".center(114))
+    print(f"║                     PRESS ENTER  TO GO BACK                     ║".center(114))
+    print(r"╚═════════════════════════════════════════════════════════════════╝".center(114))
 
 def displayheading(heading):
     """

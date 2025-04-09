@@ -50,6 +50,9 @@ Version: 0.6
 > Fixed Bug in Start from Scratch that will not recognize GPA input
 > If savedata grades contain no keys nor values, file wiper implemented
 
+Version: 0.6.1
+> Completed Docstring of Functions
+
 """
 
 # Import System Files
@@ -62,6 +65,10 @@ from main import clr
 
 # Function that reads the JSON file with Error Handling
 def read_jsonfile(file_name):
+    """
+    <DOCSTRING>
+    This function reads the JSON File passed in this function. It creates the file if not found.
+    """
     if os.path.exists(file_name) and os.path.getsize(file_name) > 0:
         try:
             with open(file_name, 'r') as file:
@@ -85,6 +92,11 @@ def read_jsonfile(file_name):
                 return {}
 
 def createorsave():
+    """
+    <DOCSTRING>
+    This function detects if the savedata.json file contains data or not.
+    Which decides if the coursemanagement menu will launch or not.
+    """
     read_jsonfile("savedata.json")
     if os.path.getsize("savedata.json") == 0:
         createmenu()
@@ -93,6 +105,10 @@ def createorsave():
 
 # Functions for Term GPA Computation
 def tgpa_calc(impcourse):
+    """
+    <DOCSTRING>
+    This function calculates the term gpa and returns a string with 2 decimal places
+    """
     with open("syllabus.json", 'r') as file:
         coursewithunits = json.load(file)
 
@@ -116,6 +132,10 @@ def tgpa_calc(impcourse):
 
 # Functions for Create
 def createmenu():
+    """
+    <DOCSTRING>
+    This function Launches the Create Menu if no data is detected in the savedata.json
+    """
     while True:
         clr()
         logo()
@@ -138,6 +158,11 @@ def createmenu():
             break
 
 def sybcreate(n):
+    """
+    <DOCSTRING>
+    This function reads the syllabus, iterates through each course, 
+    and prompts the user to edit the course code and gpa. 
+    """
     errorhandline4 = 0
     syb = read_jsonfile("syllabus.json")
     coursetmp = {}
@@ -218,6 +243,11 @@ def sybcreate(n):
             json.dump(coursetmp, file, indent=2)
 
 def cmtemplate():
+    """
+    <DOCSTRING>
+    This function compiles all functions for the
+    Add from Syllabus Template Feature
+    """
     while True:
          clr()
          logo()
@@ -238,6 +268,12 @@ def cmtemplate():
              continue      
 
 def cmbuilder():
+    """
+    <DOCSTRING>
+    This function compiles all functions for the
+    Add from Scratch Feature
+    """
+
     course = {}
     grades = {}
     donotcontinue = False
@@ -305,6 +341,11 @@ def cmbuilder():
 
 # Functions for Load
 def lmfromfile():
+    """
+    <DOCSTRING>
+    This function loads the data from savedata.json and launches coursemanagement menu with the info
+    This is required to load the coursemanagement menu properly
+    """
     data = read_jsonfile("savedata.json")
     term = data["term"]
     course = data["grades"]
@@ -313,6 +354,10 @@ def lmfromfile():
 
 # The Course Management Function
 def coursemanagement(term, course):
+    """
+    <DOCSTRING>
+    This function is the main highlight of this project.
+    """
     while True:
         clr()
         termword = "Term " + str(term)
