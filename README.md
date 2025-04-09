@@ -110,3 +110,14 @@ coursemanagement.py - Implemented Error Handling for missing savedata.json file
                       If savedata grades contain no keys nor values, file wiper implemented
 
 === ( Dated: April 1, 2025 @ 3:26 PM ) ===
+
+< < < General Version: 0.6.1 > > >
+
+Final Build for LBYCPA1
+
+main.py -             Updated Docstring
+menu.py -             Completed Docstring for all functions
+                      Edited the Menu Displays from ASCII to UNICODE
+coursemanagement.py - Completed Docstring for functions
+
+=== ( Dated: April 9, 2025 @ 3:54 PM ) ===
