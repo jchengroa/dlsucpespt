@@ -21,6 +21,7 @@ def main():
 
     while True:
 
+        tw = term_width()
         mainmenu_selector()
         
         if response_input == 1:
@@ -39,8 +40,16 @@ def main():
             response_input = 1
             pass
         elif usr_input == "4":
-            clr()
-            break
+            helpdoc()
+            input("Press Enter to Go Back".center(tw))
+        elif usr_input == "5":
+            exit_confirmation()
+            extcfm_input = input(">> ")
+            if extcfm_input == "y" or extcfm_input == "1":
+                clr()
+                break
+            else:
+                pass
         else:
             response_input = 2
             pass
